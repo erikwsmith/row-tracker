@@ -5,6 +5,13 @@ import axios from 'axios';
 import { Link } from 'react-router';
 import { ArrowLeftIcon, Trash2Icon } from 'lucide-react';
 
+const BASE_URL = "";
+if(process.env.NODE_ENV === "production"){
+    BASE_URL = "https://row-tracker.onrender.com/api/projects";
+} else {
+    BASE_URL = "http://localhost:5001/api/projects"
+}
+
 const editProject = () => {
     const [ project, setProject ] = useState([]);
     const [ loading, setLoading ] = useState(true);
@@ -16,7 +23,7 @@ const editProject = () => {
     const handleDelete = async() => {
         if(!window.confirm("Are you sure you want to delete this project?")){ return };
         try {
-            await axios.delete(`http://localhost:5001/api/projects/${projectid}`);            
+            await axios.delete(`${BASE_URL}/${projectid}`);            
             toast.success("Project deleted successfully!");
             navigate("/");
         } catch (error) {
@@ -32,7 +39,7 @@ const editProject = () => {
         setSaving(true);
 
         try {
-            await axios.put(`http://localhost:5001/api/projects/${projectid}`, project);
+            await axios.put(`${BASE_URL}/${projectid}`, project);
             toast.success("Project updated successfully!");
             navigate("/");
         } catch (error) {
@@ -46,7 +53,7 @@ const editProject = () => {
     useEffect (() => {
         const fetchProject = async () =>{
             try {
-               const res = await axios.get(`http://localhost:5001/api/projects/${projectid}`); 
+               const res = await axios.get(`${BASE_URL}/${projectid}`); 
                setProject(res.data);
             } catch (error) {
                 console.log("Error fetching project.");

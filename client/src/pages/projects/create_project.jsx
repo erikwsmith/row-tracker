@@ -4,6 +4,13 @@ import { Link, useNavigate } from 'react-router';
 import toast from 'react-hot-toast';
 import axios from 'axios';
 
+const BASE_URL = "";
+if(process.env.NODE_ENV === "production"){
+    BASE_URL = "https://row-tracker.onrender.com/api/projects";
+} else {
+    BASE_URL = "http://localhost:5001/api/projects"
+}
+
 const addProject = () => {
     
     const [ title, setTitle ] = useState("");
@@ -20,11 +27,11 @@ const addProject = () => {
         };
 
         setLoading(true);
-        try {
-            await axios.post("http://localhost:5001/api/projects", {
+        try {          
+            await axios.post(BASE_URL, {
                 title,
                 description
-            });
+            });                        
             toast.success("Project created successfully!");
             navigate("/");
         } catch (error) {
