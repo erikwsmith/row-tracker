@@ -4,7 +4,7 @@ import { Link, useNavigate } from 'react-router';
 import toast from 'react-hot-toast';
 import axios from 'axios';
 
-const BASE_URL = "";
+let BASE_URL = "";
 if(process.env.NODE_ENV === "production"){
     BASE_URL = "https://row-tracker.onrender.com/api/projects";
 } else {

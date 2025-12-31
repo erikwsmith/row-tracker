@@ -5,7 +5,7 @@ import axios from 'axios';
 import { Link } from 'react-router';
 import { ArrowLeftIcon, Trash2Icon } from 'lucide-react';
 
-const BASE_URL = "";
+let BASE_URL = "";
 if(process.env.NODE_ENV === "production"){
     BASE_URL = "https://row-tracker.onrender.com/api/projects";
 } else {
